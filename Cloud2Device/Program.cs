@@ -1,11 +1,10 @@
 ﻿using System.Text;
-using System.Threading;
 using Common;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Shared;
 using Action = Cloud2Device.Action;
 
-const string HUB_CONNECTION_STRING = "<IoT_Hub_Connection_String>";
+const string HUB_CONNECTION_STRING = "<IoT_Hub_service_Connection_String>";
 const string DEVICE_ID = "<Device_Id>";
 
 ConsoleWriter.WriteLine("Starting back-end application", ConsoleColor.Cyan);
@@ -20,7 +19,7 @@ using var client = ServiceClient.CreateFromConnectionString(
 ConsoleWriter.WriteLine("OK", ConsoleColor.Green);
 
 using var cts = new CancellationTokenSource();
-var feedbackTask = ReceiveFeedback();
+var feedbackTask = ReceiveFeedbackAsync();
 await Loop.ExecuteAsync(async () =>
 {
     ConsoleWriter.WriteLine("What do you whant to do?", ConsoleColor.Green);
@@ -34,10 +33,10 @@ await Loop.ExecuteAsync(async () =>
     switch (Enum.Parse<Action>(action))
     {
         case Action.SendC2DMessage:
-            await SendC2DMessage();
+            await SendC2DMessageAsync();
             break;
         case Action.InvokeDirectMethod:
-            await InvokeMethod();
+            await InvokeMethodAsync();
             break;
     }
 },
@@ -50,7 +49,7 @@ new Loop.Options
 ConsoleWriter.WriteLine("Exit back-end application", ConsoleColor.Cyan);
 await feedbackTask;
 
-async Task SendC2DMessage()
+async Task SendC2DMessageAsync()
 {
     ConsoleWriter.WriteLine("Enter a message", ConsoleColor.Green);
     var msg = Console.ReadLine();
@@ -64,7 +63,7 @@ async Task SendC2DMessage()
     ConsoleWriter.WriteLine($"Message with Id {message.MessageId} has sent", ConsoleColor.Cyan);
 }
 
-async Task InvokeMethod()
+async Task InvokeMethodAsync()
 {
     ConsoleWriter.WriteLine("Enter a method's name", ConsoleColor.Green);
     var methodName = Console.ReadLine();
@@ -90,7 +89,7 @@ async Task InvokeMethod()
     ConsoleWriter.WriteLine(result.GetPayloadAsJson(), ConsoleColor.Magenta);
 }
 
-async Task ReceiveFeedback()
+async Task ReceiveFeedbackAsync()
 {
     var feedbackReceiver = client!.GetFeedbackReceiver();
     var cancellationToken = cts.Token;

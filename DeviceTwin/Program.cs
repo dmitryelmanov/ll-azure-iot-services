@@ -5,7 +5,7 @@ using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 using Action = DeviceTwin.Action;
 
-const string HUB_CONNECTION_STRING = "<IoT_Hub_Connection_String>";
+const string HUB_CONNECTION_STRING = "<IoT_Hub_service_Connection_String>";
 const string DEVICE_ID = "<Device_Id>";
 var twin = default(Twin);
 
@@ -14,7 +14,7 @@ ConsoleWriter.Write("Creating registry manager... ", ConsoleColor.Cyan);
 using var registry = RegistryManager.CreateFromConnectionString(HUB_CONNECTION_STRING);
 ConsoleWriter.WriteLine("OK", ConsoleColor.Green);
 
-await GetAndPrintDeviceTwin();
+await GetAndPrintDeviceTwinAsync();
 
 await Loop.ExecuteAsync(async () =>
 {
@@ -29,20 +29,20 @@ await Loop.ExecuteAsync(async () =>
     switch (Enum.Parse<Action>(action))
     {
         case Action.UpdateProperty:
-            await UpdateProperty();
+            await UpdatePropertyAsync();
             break;
         case Action.UpdateTag:
-            await UpdateTag();
+            await UpdateTagAsync();
             break;
         case Action.ReadTwin:
-            await GetAndPrintDeviceTwin();
+            await GetAndPrintDeviceTwinAsync();
             break;
     }
 },
 new Loop.Options { IntervalMs = 1 * 1000 });
 
 
-async Task GetAndPrintDeviceTwin()
+async Task GetAndPrintDeviceTwinAsync()
 {
     ConsoleWriter.Write("Getting device twin... ", ConsoleColor.Cyan);
     twin = await registry!.GetTwinAsync(DEVICE_ID);
@@ -51,7 +51,7 @@ async Task GetAndPrintDeviceTwin()
     ConsoleWriter.WriteLine(twin.ToJson(Formatting.Indented), ConsoleColor.Blue);
 }
 
-async Task UpdateProperty()
+async Task UpdatePropertyAsync()
 {
     ConsoleWriter.WriteLine("Enter desired property Name", ConsoleColor.Green);
     var name = Console.ReadLine();
@@ -77,10 +77,10 @@ async Task UpdateProperty()
         _ => value,
     };
     await registry.UpdateTwinAsync(DEVICE_ID, twinPatch, twin!.ETag);
-    await GetAndPrintDeviceTwin();
+    await GetAndPrintDeviceTwinAsync();
 }
 
-async Task UpdateTag()
+async Task UpdateTagAsync()
 {
     ConsoleWriter.WriteLine("Enter tag Name", ConsoleColor.Green);
     var name = Console.ReadLine();
@@ -93,5 +93,5 @@ async Task UpdateTag()
     var twinPatch = new Twin();
     twinPatch.Tags[name] = value;
     await registry!.UpdateTwinAsync(DEVICE_ID, twinPatch, twin!.ETag);
-    await GetAndPrintDeviceTwin();
+    await GetAndPrintDeviceTwinAsync();
 }
