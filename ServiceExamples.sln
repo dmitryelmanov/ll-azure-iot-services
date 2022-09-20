@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{632D234C-4326-4084-B120-0E316C70437B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{632D234C-4326-4084-B120-0E316C70437B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceTwin", "DeviceTwin\DeviceTwin.csproj", "{8CCA3D89-726A-4C2D-81FE-26A9FF5D0983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceTwin", "DeviceTwin\DeviceTwin.csproj", "{8CCA3D89-726A-4C2D-81FE-26A9FF5D0983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud2Device", "Cloud2Device\Cloud2Device.csproj", "{21AA81F0-111D-4F13-8002-D447B263123C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud2Device", "Cloud2Device\Cloud2Device.csproj", "{21AA81F0-111D-4F13-8002-D447B263123C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Management", "Management\Management.csproj", "{42688565-DD23-4E58-85F8-D81A1E50FB9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Management", "Management\Management.csproj", "{42688565-DD23-4E58-85F8-D81A1E50FB9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry", "Telemetry\Telemetry.csproj", "{E2260259-36E4-4993-9FDC-C65300C30CB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{42688565-DD23-4E58-85F8-D81A1E50FB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42688565-DD23-4E58-85F8-D81A1E50FB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42688565-DD23-4E58-85F8-D81A1E50FB9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2260259-36E4-4993-9FDC-C65300C30CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2260259-36E4-4993-9FDC-C65300C30CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2260259-36E4-4993-9FDC-C65300C30CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2260259-36E4-4993-9FDC-C65300C30CB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
